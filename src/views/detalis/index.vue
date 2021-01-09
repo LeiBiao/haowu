@@ -185,7 +185,7 @@ export default {
         this.orderList.push({
           goodName: this.goods.goods_name,
           price: this.goods.goods_price,
-          num: this.goods.num,
+          num: 1,
           payTime: this.goods.payTime,
           goods_id: this.goods.goods_id,
         });

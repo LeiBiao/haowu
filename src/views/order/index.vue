@@ -96,7 +96,7 @@ export default {
   },
   mounted() {
     //给orderlist赋值
-    // console.log(this.orderList);
+    console.log(this.orderList);
     this.orderList.forEach((item) => {
       item.payTime = formatDate(item.payTime);
       item.priceCount = item.num * item.price;

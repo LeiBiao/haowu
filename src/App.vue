@@ -1,32 +1,50 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <!-- 底部 -->
+    <app-tabbar v-if="tabberShow"></app-tabbar>
+    <keep-alive :include="cachePage">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import appTabbar from "./components/tabbar";
+import { mapState } from "vuex";
+export default {
+  name: "",
+  components: { appTabbar },
+  props: {},
+  data() {
+    return {
+      tabberShow: true,
+      goods_id: "",
+    };
+  },
+  computed: {
+    ...mapState(["cachePage"]),
+  },
 
-#nav {
-  padding: 30px;
+  watch: {
+    $route(to, from) {
+      this.goods_id = this.$route.params.goods_id;
+      if (
+        this.$route.path === `/detalis/${this.goods_id}` ||
+        this.$route.path === "/shopcar" ||
+        this.$route.path === "/login" ||
+        this.$route.path === "/edit" ||
+        this.$route.path === "/robot"
+      ) {
+        this.tabberShow = false;
+      } else {
+        this.tabberShow = true;
+      }
+    },
+  },
+  created() {},
+  mounted() {},
+};
+</script>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+<style scoped lang="scss">
 </style>
